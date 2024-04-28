@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start":"node src/server.js",
     "dev": "nodemon src/server.js",
     "contract:deploy": "node src/web3/deployingScript.js",
     "test": "echo \"Error: no test specified\" && exit 1"
