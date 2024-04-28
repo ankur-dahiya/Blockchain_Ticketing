@@ -15,6 +15,7 @@ import session from "express-session";
 
 const server = express();
 
+server.use(cors());
 server.use(cookieParser());
 server.use(express.json());
 server.use(session({
@@ -24,6 +25,9 @@ server.use(session({
 }));
 
 //routers
+server.get("/",(req,res,next)=>{
+    res.send("hello world");
+})
 server.use("/auth",authRouter);
 server.use("/ticket",ticketRouter);
 server.use("/user",userRouter);
