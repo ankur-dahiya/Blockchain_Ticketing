@@ -1,6 +1,7 @@
 import mongoose,{Schema} from "mongoose";
 import Image from "./image.js";
-// import User from "./user.js";
+import mongooseLong from 'mongoose-long';
+mongooseLong(mongoose);
 
 const ticketSchema = new Schema({
     name:{
@@ -8,7 +9,7 @@ const ticketSchema = new Schema({
         required:true
     },
     ticketId:{
-        type:Number,
+        type:Schema.Types.Long,
         required:true,
         unique:true
     },

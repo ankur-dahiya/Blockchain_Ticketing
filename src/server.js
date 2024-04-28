@@ -11,7 +11,7 @@ import adminRouter from "./routes/admin.js";
 import passport from "passport";
 import userService from "./services/db/user.js";
 import session from "express-session";
-import "./worker/eventListener.js";
+// import "./worker/eventListener.js";
 
 const server = express();
 

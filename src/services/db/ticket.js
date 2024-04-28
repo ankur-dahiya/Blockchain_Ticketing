@@ -4,14 +4,11 @@ import Ticket from "../../model/ticket.js";
 import User from "../../model/user.js";
 import ContractCalls from "../contract/functionCalls.js"
 
-let ticketId = 22;
 
 export default class ticketService{
     static createDBTicket = async (quantity,vendorAddr,name,showDate,vendor,price,{buffer,mimeType})=>{
-        // TODO: receive ticket id
         try{
-            await ContractCalls.createTicket(quantity,vendorAddr);
-            ticketId++;
+            const ticketId = await ContractCalls.createTicket(quantity,vendorAddr);
             const img = new Image({buffer,mimeType});
             const imageObj = await img.save();
             const ticket = new Ticket({name,vendor,ticketId,quantity,showDate,price,image:imageObj._id});

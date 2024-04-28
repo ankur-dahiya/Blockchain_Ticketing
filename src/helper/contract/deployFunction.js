@@ -12,7 +12,6 @@ export async function deployContract(){
         .deploy({data:CONTRACT_BYTECODE})
         .send({from:Owner_Addr,gas:3013530})
         .on("receipt",(receipt)=>{
-            // when we deploy the smartcontract we receive receipt containing details such as txn has,from address and so on.
             Contract_Addr = receipt.contractAddress;
             console.log("Contract Address is: ",Contract_Addr);
         });
