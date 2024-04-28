@@ -9,7 +9,7 @@ const ticketSchema = new Schema({
         required:true
     },
     ticketId:{
-        type:Schema.Types.Long,
+        type:Number,
         required:true,
         unique:true
     },

@@ -1,6 +1,8 @@
+import Constants from "../constant/constants.js";
 import {web3} from "./web3.js";
 
-export const CONTRACT_ADDR = "0x93f10577219e5b5649cbc0fab475e06c7794d6a1";
+// export const CONTRACT_ADDR = "0x951E89B74A98F7227539A13Dc910C391cB706c9e";
+export const CONTRACT_ADDR = Constants.CONTRACT_ADDR;
 export const CONTRACT_ABI = [
   {
     inputs: [

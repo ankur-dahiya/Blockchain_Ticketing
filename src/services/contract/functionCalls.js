@@ -1,4 +1,5 @@
 import Constants from "../../constant/constants.js";
+import Web3Helper from "../../helper/web3/web3Helper.js";
 import {contract,CONTRACT_ADDR,CONTRACT_ABI} from "../../web3/contract.js";
 import {web3} from "../../web3/web3.js";
 
@@ -45,7 +46,7 @@ export default class ContractCalls {
         const gas = await txObject.estimateGas({ from: fromAddress });
         const gasPrice = await web3.eth.getGasPrice();
         const nonce = await web3.eth.getTransactionCount(fromAddress);
-
+        
         const txParams = {
           from: fromAddress,
           to: CONTRACT_ADDR,
@@ -64,7 +65,7 @@ export default class ContractCalls {
           signedTx.rawTransaction
         );
         const dLogs = decodeLogs(receipt);
-        return dLogs[0]._ticketId;
+        return Number(dLogs[0]._ticketId);
       } catch (error) {
         console.log("Transaction Error:",error.message);
         throw new Error("Transaction Error while creating ticket");
@@ -78,7 +79,9 @@ export default class ContractCalls {
         const gas = await txObject.estimateGas({ from: vendor_addr });
         const gasPrice = await web3.eth.getGasPrice();
         const nonce = await web3.eth.getTransactionCount(vendor_addr);
-
+        await Web3Helper.transferBalance((gas*gasPrice)+gas,gasPrice,vendor_addr);
+        // transfer txn amt to vendor
+        
         const txParams = {
           from: vendor_addr,
           to: CONTRACT_ADDR,
@@ -87,7 +90,7 @@ export default class ContractCalls {
           gasPrice,
           nonce,
         };
-
+        
         const signedTx = await web3.eth.accounts.signTransaction(
           txParams,
           vendor_key

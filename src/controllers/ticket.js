@@ -19,7 +19,6 @@ export default class ticketController{
 
     static purchaseTicket = catchAsyncError(async (req,res,next)=>{
         const user = req.user;
-        console.log("user purchasing ticket: ",user.email);
         const {ticketId} = req.body;
         await ticketService.purchaseTicket(ticketId,user.publicAddress,user._id);
         res.status(200).json({success:true,message:"ticket purchase successful"});

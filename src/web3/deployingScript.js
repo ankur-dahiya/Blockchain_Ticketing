@@ -41,4 +41,4 @@ console.log(JSON.stringify(CONTRACT_ABI));
 console.log("**************CONTRACT ABI**********************")
 // deploying and creating the instance of the contract
 await deployContract();
-console.log("contract deployed...now copy the ABI, Contract address and paste in src/web3/contract.js")
+console.log("contract deployed...now copy the ABI paste in src/web3/contract.js and set contract address in .env file")

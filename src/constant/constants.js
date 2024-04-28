@@ -5,4 +5,6 @@ export default class Constants{
     static OWNER_ADDR = process.env.OWNER_ADDR;
     static OWNER_PVT_KEY = process.env.OWNER_PVT_KEY;
     static JWT_SECRET = process.env.JWT_SECRET;
+    static INFURA_APPID = process.env.INFURA_APPID;
+    static CONTRACT_ADDR = process.env.CONTRACT_ADDR;
 }
