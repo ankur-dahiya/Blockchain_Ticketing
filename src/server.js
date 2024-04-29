@@ -16,7 +16,7 @@ import cors from "cors";
 
 const server = express();
 
-server.use(cors());
+server.use(cors({credentials:true));
 server.use(cookieParser());
 server.use(express.json());
 server.use(session({
