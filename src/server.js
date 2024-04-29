@@ -16,19 +16,10 @@ import cors from "cors";
 
 const server = express();
 
-let whitelist = ['http://localhost:3000']
-let corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-    credentials:true
-}
-
-server.use(cors(corsOptions));
+server.use(cors({
+  origin:"http://localhost:3000",
+  credentials:true
+               ));
 server.use(cookieParser());
 server.use(express.json());
 server.use(session({
