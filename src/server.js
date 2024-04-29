@@ -3,7 +3,7 @@ import Constants from "./constant/constants.js";
 import "./db/db.js";
 import cookieParser from "cookie-parser";
 import {Strategy as JwtStrategy} from 'passport-jwt';
-import { cookieExtractor, sanitizeUser } from "./helper/helperFunctions.js";
+import { sanitizeUser } from "./helper/helperFunctions.js";
 import authRouter from "./routes/auth.js";
 import ticketRouter from "./routes/ticket.js";
 import userRouter from "./routes/user.js";
@@ -12,11 +12,13 @@ import passport from "passport";
 import userService from "./services/db/user.js";
 import session from "express-session";
 import cors from "cors";
+import {ExtractJwt} from 'passport-jwt';
+
 // import "./worker/eventListener.js";
 
 const server = express();
 
-server.use(cors());
+server.use(cors({origin:"http://localhost:3000",credentials:true,exposedHeaders:["Authorization"]}));
 server.use(cookieParser());
 server.use(express.json());
 server.use(session({
@@ -40,11 +42,13 @@ server.use((error,req,res,next)=>{
     return res.status(statusCode).json({success:false,message});
 });
 
-// JWT options
-const opts = {}
-opts.jwtFromRequest = cookieExtractor;
-opts.secretOrKey = Constants.JWT_SECRET; 
-passport.use("jwt",new JwtStrategy(opts, async function(jwt_payload, done) {
+
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: Constants.JWT_SECRET // Replace with your actual secret key
+};
+
+passport.use("jwt",new JwtStrategy(jwtOptions, async function(jwt_payload, done) {
     try{
         // jwt_payload will contain the decrypted values from bearer token
         const {user,exp} = jwt_payload;
