@@ -36,6 +36,6 @@ export default class authController{
         const userObj = await userService.createUser(email,name,phone,password,privateKey,publicAddress);
         const user = sanitizeUser(userObj);
         const usertToken = createJWT(user);
-        return res.cookie("jwt",usertToken,{maxAge:(60*60*1000),httpOnly:true}).status(200).json({success:true,data:user});
+        return res.header("Authorization",usertToken).status(200).json({success:true,data:user});
     });
 }
