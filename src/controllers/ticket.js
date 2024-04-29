@@ -10,7 +10,9 @@ export default class ticketController{
         if(!(user.role=="vendor" || user.role=="admin")){
             return next(errorHelper(401,"not authorized"));
         }
-        const {name,quantity,showDate,price} = req.body;
+        let {name,quantity,showDate,price} = req.body;
+        price = +price;
+        quantity = +quantity;
         const show_date = new Date(showDate);
         const userObj = await userService.getUserById(user._id);
         const ticketObj = await ticketService.createDBTicket(quantity,userObj.publicAddress,name,show_date,user._id,price,{buffer,mimeType:mimetype});

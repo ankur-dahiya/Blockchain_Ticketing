@@ -35,6 +35,6 @@ export default class ticketService{
     }
 
     static getAllTickets = async ()=>{
-        return await Ticket.find();
+        return await Ticket.find().populate("image");
     }
 }

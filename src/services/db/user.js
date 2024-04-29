@@ -32,7 +32,15 @@ export default class userService{
     }
 
     static getUserOrders = async (userId)=>{
-        const user = await User.findById(userId).populate("orders");
+        const user = await User.findById(userId).populate({ 
+            path: 'orders',
+            populate: {
+              path: 'ticket_id',
+              populate:{
+                path: "image"
+              }
+            }
+          });
         if(!user) throw new Error("user not found");
         return user.orders;
     }
