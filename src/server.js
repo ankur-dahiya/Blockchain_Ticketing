@@ -18,7 +18,7 @@ import {ExtractJwt} from 'passport-jwt';
 
 const server = express();
 
-server.use(cors({origin:"http://localhost:3000",credentials:true,exposedHeaders:["Authorization"]}));
+server.use(cors({origin:["http://localhost:3000","https://blockchain-ticket.vercel.app"],credentials:true,exposedHeaders:["Authorization"]}));
 server.use(cookieParser());
 server.use(express.json());
 server.use(session({
@@ -28,7 +28,7 @@ server.use(session({
 }));
 
 //routers
-server.get("/",(req,res,next)=>{
+server.get("/hello",(req,res,next)=>{
     res.send("hello world");
 })
 server.use("/auth",authRouter);
